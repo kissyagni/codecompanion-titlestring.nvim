@@ -51,11 +51,11 @@ return {
             -- Shown when the agent is idle (default: "")
             idle = "",
             -- Can be single icone or array. In case of arrayn, alternated while the agent is working 
-            thinking = { "󰚩", "󱚝" },
+            thinking = { "󰚩 ", "󱚝 " },
             -- Waiting for tool or CLI approval 
-            approval = "󰚩 󰭺 ",
+            approval = {"󰚩 󰭺 ","󰚩   "}
             -- Agent asked a question 
-            question = "󰚩 󱜸 ",
+            question = {"󰚩 󱜸 ", "󰚩   "},
             -- Can be single icone or array. In case of arrayn, alternated while the agent is compactng 
             compacting = "󱜙 ",
           },

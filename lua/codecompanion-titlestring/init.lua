@@ -30,8 +30,12 @@ function M.update()
 
 	local icon
 	if currentState == State.Approval then
+		local icons = cfg.icons.approval
+		icon = type(icons) == "string" and icons or icons[spinner_idx % #icons + 1]
 		icon = cfg.icons.approval
 	elseif currentState == State.Question then
+		local icons = cfg.icons.question
+		icon = type(icons) == "string" and icons or icons[spinner_idx % #icons + 1]
 		icon = cfg.icons.question
 	elseif currentState == State.Compacting then
 		local icons = cfg.icons.compacting
@@ -40,6 +44,8 @@ function M.update()
 		local icons = cfg.icons.thinking
 		icon = type(icons) == "string" and icons or icons[spinner_idx % #icons + 1]
 	else
+		local icons = cfg.icons.idle
+		icon = type(icons) == "string" and icons or icons[spinner_idx % #icons + 1]
 		icon = cfg.icons.idle
 	end
 
