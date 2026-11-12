@@ -6,8 +6,6 @@
 ---@field compacting string
 
 ---@class CodeCompanionTitlestringConfig
----@field title? boolean
----@field titlestring? string
 ---@field icons CodeCompanionTitlestringIcons
 
 local M = {}
