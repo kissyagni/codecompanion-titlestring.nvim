@@ -50,13 +50,13 @@ return {
           icons = {
             -- Shown when the agent is idle (default: "")
             idle = "",
-            -- Alternated while the agent is working 
+            -- Can be single icone or array. In case of arrayn, alternated while the agent is working 
             thinking = { "󰚩", "󱚝" },
             -- Waiting for tool or CLI approval 
             approval = "󰚩 󰭺 ",
             -- Agent asked a question 
             question = "󰚩 󱜸 ",
-            -- Chat compaction in progress 
+            -- Can be single icone or array. In case of arrayn, alternated while the agent is compactng 
             compacting = "󱜙 ",
           },
         },

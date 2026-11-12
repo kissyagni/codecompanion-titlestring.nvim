@@ -19,36 +19,31 @@ local State = {
 
 ---@type State?
 local currentState = State.Idle
+local base_titlestring = ""
 local timer = nil
 local spinner_idx = 1
-
-local function cwd_name()
-	local cwd = vim.fn.getcwd()
-	local name = vim.fn.fnamemodify(cwd, ":t")
-	if name == "" then
-		name = cwd
-	end
-	return name
-end
 
 function M.update()
 	if not cfg then
 		return
 	end
 
+	local icon
 	if currentState == State.Approval then
-		vim.opt.titlestring = cfg.icons.approval .. cwd_name()
+		icon = cfg.icons.approval
 	elseif currentState == State.Question then
-		vim.opt.titlestring = cfg.icons.question .. cwd_name()
+		icon = cfg.icons.question
 	elseif currentState == State.Compacting then
-		local icon = cfg.icons.compacting[spinner_idx % #cfg.icons.compacting + 1]
-		vim.opt.titlestring = icon .. " " .. cwd_name()
+		local icons = cfg.icons.compacting
+		icon = type(icons) == "string" and icons or icons[spinner_idx % #icons + 1]
 	elseif currentState == State.Processing then
-		local icon = cfg.icons.thinking[spinner_idx % #cfg.icons.thinking + 1]
-		vim.opt.titlestring = icon .. " " .. cwd_name()
+		local icons = cfg.icons.thinking
+		icon = type(icons) == "string" and icons or icons[spinner_idx % #icons + 1]
 	else
-		vim.opt.titlestring = cfg.icons.idle .. cwd_name()
+		icon = cfg.icons.idle
 	end
+
+	vim.opt.titlestring = icon .. base_titlestring
 end
 
 local function start_timer()
@@ -103,6 +98,8 @@ local AUGROUP = "codecompanion_titlestring"
 function M.setup(opts)
 	cfg = config.setup(opts)
 
+	base_titlestring = cfg.titlestring or vim.o.titlestring
+
 	vim.o.title = true
 
 	M.update()
@@ -116,7 +113,7 @@ function M.setup(opts)
 				M.update()
 			end
 		end,
-		desc = "Refresh terminal title with cwd when agent is idle",
+		desc = "Refresh terminal title when agent is idle",
 	})
 
 	vim.api.nvim_create_autocmd("User", {
